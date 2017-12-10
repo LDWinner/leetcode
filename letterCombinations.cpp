@@ -28,10 +28,12 @@ public:
             return;
         }
         string data = table[digits[level] - '0'];
+        string temp = curr;
         for(size_t i = 0;i < data.size();++i)
         {
-            curr.push_back(data[i]);
+            curr += data[i];
             letterCombinationsDFS(digits,curr,level + 1,table,result);
+            curr = temp;
         }
     }
 };

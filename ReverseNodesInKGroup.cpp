@@ -38,10 +38,17 @@ public:
     ListNode* reverseKGroup(ListNode* head, int k) {
         ListNode *start = head;
         ListNode *end = start;
+        ListNode *prev = start;
+        if(k == 1)
+            return head;
         while(end)
         {
             for(int i = 0;i < k;++i)
             {
+                if(!end->next && i < k - 1)
+                {
+                    return head;
+                }
                 if(i == k - 1)
                 {
                     ListNode *tmp;
@@ -53,25 +60,21 @@ public:
                 {
                     end = end->next;
                 }
-
-                if(!end->next && i < k - 1)
-                {
-                    return head;
-                }
             }
 
             ListNode *result = reverseList(start);
-            if(start == head)
+            if(prev == head)
             {
                 head = result;
             }
             else
             {
-                start->next = result;
+                prev->next = result;
             }
             ListNode *e = findEnd(result);
             e->next = end;
-            start = e;
+            prev = e;
+            start = end;
 
         }
         return head;
